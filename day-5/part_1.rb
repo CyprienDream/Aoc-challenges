@@ -1,14 +1,13 @@
 def parse_file
-  File.open("input.txt").readlines.map(&:chomp)
+  File.open('input.txt').readlines.map(&:chomp)
 end
 
 def parse_line(line)
   line.gsub('->', ',').split(',').map(&:to_i)
 end
 
-def get_lines_array(data)
+def lines_array
   lines = []
-
   parse_file.each do |text_line|
     lines << parse_line(text_line)
   end
@@ -31,7 +30,7 @@ end
 
 coordinates = []
 
-get_lines_array(parse_file).delete_if {  |line| line[0] != line[2] && line[1] != line[3] }.each do |line|
+lines_array(parse_file).delete_if { |line| line[0] != line[2] && line[1] != line[3] }.each do |line|
   if line[0] != line[2]
     if line[0] < line[2]
       add_line_coordinates(line[0], line[2], false, line[3], coordinates)
