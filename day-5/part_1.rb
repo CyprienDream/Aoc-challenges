@@ -17,13 +17,8 @@ end
 
 def add_line_coordinates(min, max, is_x_stable, stable, coordinates)
   (min..max).each do |i|
-    if is_x_stable
-      coordinates << [stable, i]
-    else
-      coordinates << [i, stable]
-    end
+    coordinates << (is_x_stable ? [stable, i] : [i, stable])
   end
-  coordinates
 end
 
 def build_weights_hash(coordinates)
@@ -33,8 +28,6 @@ def build_weights_hash(coordinates)
   end
   weights
 end
-
-
 
 coordinates = []
 
@@ -46,14 +39,12 @@ get_lines_array(parse_file).delete_if {  |line| line[0] != line[2] && line[1] !=
       add_line_coordinates(line[2], line[0], false, line[3], coordinates)
 
     end
+  elsif line[1] < line[3]
+    add_line_coordinates(line[1], line[3], true, line[0], coordinates)
   else
-    if line[1] < line[3]
-      add_line_coordinates(line[1], line[3], true, line[0], coordinates)
-    else
-      add_line_coordinates(line[3], line[1], true, line[0], coordinates)
-    end
+    add_line_coordinates(line[3], line[1], true, line[0], coordinates)
   end
 end
 
 weights = build_weights_hash(coordinates)
-p part1_answer = weights.delete_if { |key, value| value < 2}.length
+p part1_answer = weights.delete_if { |_, value| value < 2 }.length
