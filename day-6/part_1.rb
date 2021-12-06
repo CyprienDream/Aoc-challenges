@@ -15,7 +15,7 @@ numbers = parse_file
 
 
 # main loop
-256.times do
+80.times do
   num_0 = count_elements(numbers, 0)
 
   numbers.delete_if {|number| number == 0}
