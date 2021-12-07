@@ -4,10 +4,12 @@ end
 
 numbers = parse_file
 max = numbers.max
+p max
 sums = []
 
 for i in 0..max
-  sums[i] = numbers.map { |num| (num - i).abs }.sum
+  sums[i] = numbers.map { |num| (0..(num - i).abs).sum }.sum
+  p i
 end
 
 p sums.min
