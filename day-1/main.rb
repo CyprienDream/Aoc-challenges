@@ -9,6 +9,7 @@ def get_num_increases(numbers)
   counter
 end
 
+# this method calculates the three number sum for each number in the array
 def get_sums_array(numbers)
   sums_array = []
 
