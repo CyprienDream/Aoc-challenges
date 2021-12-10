@@ -3,10 +3,10 @@ import re
 from collections import defaultdict
 from typing import List, NamedTuple
 
-
+# define regular expression for vent pattern
 VENT_PATTERNS = r'([0-9]+),([0-9]+) -> ([0-9]+),([0-9]+)'
 
-
+# define coordinate and line data structures
 class Coordinate(NamedTuple):
     x: int
     y: int
@@ -16,7 +16,7 @@ class Line(NamedTuple):
     source: Coordinate
     destination: Coordinate
 
-
+# counts how many lines pass through each point
 def determine_overlapping_count(lines: List[Line]) -> int:
     """
         --> x
