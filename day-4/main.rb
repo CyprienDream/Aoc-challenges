@@ -1,33 +1,34 @@
-# data = File.open("input.txt")
-# lines = data.readlines.map(&:chomp)
-
-# drawn_numbers = lines[0]
-
-
+# define array of winning lines constant
 WINNING_LINES = [[0, 1, 2, 3, 4], [5, 6, 7, 8, 9], [10, 11, 12, 13, 14], [15, 16, 17, 18, 19], [20, 21, 22, 23, 24], [0, 5, 10, 15, 20], [1, 6, 11, 16, 21], [2, 7, 12, 17, 22], [3, 8, 13, 18, 23], [4, 9, 14, 19, 24]]
 
+# returns the first winner found
 def find_first_winner(boards)
   boards.each { |board| return board if won?(board) }
   nil
 end
 
+# determine if a given board is winning
 def won?(board)
   WINNING_LINES.any? { |line| line.none? { |open_square| board[open_square] } }
 end
 
+# return an array of all winners
 def find_all_winners(boards)
   boards.select { |board| won?(board) }
 end
 
+# apply move to board
 def mark_boards!(boards, move)
   boards.each { |board| board.map! { |square| square == move ? nil : square } }
 end
 
+# sums up numbers to calculate winning score
 def calculate_winning_sum(board, move)
   board_sum = board.compact.map! { |square| square.to_i }.inject(:+)
   board_sum * move.to_i
 end
 
+# format data into array of boards and array of moves
 bingo_data = File.read('input.txt').split
 bingo_moves = bingo_data.shift.split(",")
 bingo_boards = bingo_data.each_slice(25).to_a
