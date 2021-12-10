@@ -1,5 +1,7 @@
+# read input file and split into array of lines
 data = File.open("input.txt")
 
+# initialise variables
 x = 0
 depth = 0
 aim = 0
@@ -19,13 +21,6 @@ data.readlines.map(&:chomp).each do |line|
   end
   p line[-1].to_i
 end
-
-
-
-
-
-p x
-p depth
 
 answer = x * depth
 

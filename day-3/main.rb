@@ -1,17 +1,18 @@
+# This is a failed attempt at solving the problem
+
+# read input file and split into array of lines
 data = File.open("input.txt")
-
-# line_number = data.readlines.count
-
-weights = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
 lines = data.readlines.map(&:chomp)
 
+# initialise weight array
+weights = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+# populate weights array
 lines.each do |l|
   l.scan(/./).each_with_index do |char, index|
     weights[index] += 1 if char == '1'
   end
 end
-p weights
 
 bin_g = []
 bin_e = []
@@ -20,7 +21,7 @@ carbon = []
 counter = 0
 
 
-# oxygen
+# build indicative bit weight array for oxygen
 oxygen = weights.map do |weight|
   if weight >= 500
     "1"
@@ -29,6 +30,7 @@ oxygen = weights.map do |weight|
   end
 end
 
+# build indicative bit weight array for carbon
 carbon = weights.map do |weight|
   if weight < 500
     "1"
@@ -36,13 +38,12 @@ carbon = weights.map do |weight|
     "0"
   end
 end
-p oxygen
-p carbon
 
+# store a copy of input file to be able to modify lines variable
 lines_copy = lines
 
 oxygen.each_with_index do |weight, index|
-  break if lines.count('a') == 999
+  break if lines.count('a') == 999 # stop loop if there is only one element left
 
   # bin_g << 1 if e > 500
   # bin_g << 0 if e < 500
@@ -50,20 +51,20 @@ oxygen.each_with_index do |weight, index|
   # bin_e << 1 if e < 500
   # break if lines.length == 2
 
-  puts "CRITERIA: #{weight}"
+  # puts "CRITERIA: #{weight}"
   lines.each_with_index do |line, i|
-    break if lines.count('a') == 999
+    break if lines.count('a') == 999 # break loop if there is only one element left
 
-    line = line.scan(/./)
-    puts "current number: #{line}"
-    puts "current bit: #{line[index]}"
-    puts "the condition is #{line[index] == weight}"
+    line = line.scan(/./) # split line into array of characters
+    # puts "current number: #{line}"
+    # puts "current bit: #{line[index]}"
+    # puts "the condition is #{line[index] == weight}"
     if line[index] != weight
-      lines[i] = 'a'
+      lines[i] = 'a' # replace element with 'a' if
       # p "lines[i]= " + lines[i].to_s
     end
-    puts "updated number: #{lines[i]}"
-    puts ""
+    # puts "updated number: #{lines[i]}"
+    # puts ""
     # p line
     # if e > 500
     #   oxygen << l if l[0] == '1'
@@ -112,17 +113,18 @@ carbon.each_with_index do |weight, index|
   end
 end
 
-# puts counter
+# remove unwanted elements
 lines.delete('a')
 lines_copy.delete('a')
+
+# format remaining element in each array
 ox = lines[0].to_i(2)
 ca = lines_copy[0].to_i(2)
-p ox
-p ca
 
+# calculate result
 result = ca * ox
-
 p result
+
 # gamma = bin_g.join.to_i(2)
 # epsilon = bin_e.join.to_i(2)
 
