@@ -31,3 +31,5 @@ puts countpaths(cavemap, true, [], 'start', 'end')
 
 # Part 2
 puts countpaths(cavemap, false, [], 'start', 'end')
+
+# hi
